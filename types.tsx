@@ -1,17 +1,18 @@
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  BluetoothDeviceList: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  ColorsTab: undefined;
+  PalettesTab: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type ColorsTabParamList = {
+  ColorsTab: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type PalettesTabParamList = {
+  PalettesTab: undefined;
 };

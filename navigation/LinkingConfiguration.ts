@@ -6,19 +6,20 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Colors: {
             screens: {
-              TabOneScreen: 'one',
+              ColorsScreen: 'one',
             },
           },
-          TabTwo: {
+          Palettes: {
             screens: {
-              TabTwoScreen: 'two',
+              PalettesScreen: 'two',
             },
           },
         },
       },
       NotFound: '*',
+      BleDeviceList: '*'
     },
   },
 };
