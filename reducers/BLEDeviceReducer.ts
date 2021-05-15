@@ -3,22 +3,24 @@ import { createSlice } from '@reduxjs/toolkit'
 const bluetoothState = createSlice({
     name: 'bluetooth',
     initialState: {
-        devices: [],
-        connectedDevice: null,
-        isScanning: false,
+        connectedDeviceId: null
     },
-    reducers: {}
-})
+    reducers: {
+        setConnectedDevice: (state, action) => {
+            console.log(action);
+            state.connectedDeviceId = action.payload;
+        },
+        clearConnectedDevice: (state, action) => {
+            state.connectedDeviceId = null;
+        },
+    }
+});
 
-export const getBehavior = (state: any) => state.bluetooth.behavior;
-export const getBrightness = (state: any) => state.bluetooth.brightness;
-export const getSpeed = (state: any) => state.bluetooth.speed;
+export const getConnectedDevice = (state: any) => state.bluetooth.connectedDeviceId;
 
 export const {
-    setBrightness,
-    setSpeed,
-    setPalette,
-    setBehavior
+    setConnectedDevice,
+    clearConnectedDevice,
 } = bluetoothState.actions;
 
 export default bluetoothState.reducer;    

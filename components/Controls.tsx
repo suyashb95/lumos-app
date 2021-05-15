@@ -1,20 +1,27 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Button } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Buffer } from 'buffer';
 import { Text, View } from './Themed';
 import { Behavior } from '../constants/Behavior';
-import { getBehavior, setBehavior, setSpeed, setBrightness, setPalette, getBrightness, getSpeed } from '../reducers/PatternReducer';
+import { getBehavior, setBehavior, setSpeed, setBrightness, getPatternConfiguration, setPalette, getBrightness, getSpeed } from '../reducers/PatternReducer';
 import { LabeledSlider } from './LabeledSlider';
 import Navigation from '../navigation';
+import { clearConnectedDevice, getConnectedDevice } from '../reducers/BLEDeviceReducer';
+import { useState } from 'react';
+import { Base64, BleManager, Device } from 'react-native-ble-plx';
+import { LUMOS_SERVICE_CHARACTERISTIC, LUMOS_WRITE_CHARACTERISTIC } from '../constants/DeviceCharacteristics';
+import BluetoothManager from '../constants/BluetoothManager';
 
 export default function Controls({ navigation }) {
   const dispatch = useDispatch();
   const behavior = useSelector(getBehavior);
   const brightness = useSelector(getBrightness);
   const speed = useSelector(getSpeed);
+  const device = useSelector(getConnectedDevice);
+  const patternConfig = useSelector(getPatternConfiguration);
 
   return (
     <View>   
@@ -41,7 +48,7 @@ export default function Controls({ navigation }) {
         />
         <Text style={{marginLeft: 10, marginBottom: 10}} >Effect</Text>
         <Picker
-          style={{marginLeft: 10, marginBottom: 20, backgroundColor: '#fff', width: '30%'}}
+          style={{marginLeft: 10, marginBottom: 20, backgroundColor: '#fff', width: '45%'}}
           onValueChange={(value, _) => dispatch(setBehavior(value))}
           selectedValue={behavior}
           mode={Picker.MODE_DROPDOWN}>
@@ -52,7 +59,22 @@ export default function Controls({ navigation }) {
         </Picker>
         <View style={{marginLeft: 10}}>
           <Button
-            onPress={() => navigation.navigate('BluetoothDeviceList')}
+            onPress={() => {
+              let payload = JSON.stringify(patternConfig);
+              console.log(payload);
+              if (device !== null) {
+                BluetoothManager.getBluetoothManager()
+                  .writeCharacteristicWithResponseForDevice(
+                    device,
+                    LUMOS_SERVICE_CHARACTERISTIC,
+                    LUMOS_WRITE_CHARACTERISTIC,
+                    Buffer.from(payload).toString('base64'),
+                  ).then((characteristic) => {
+                    console.log(characteristic);
+                  })
+                  .catch(err => console.log(err.reason));
+              }}
+            }
             title="Update"
             color="#841584"
             accessibilityLabel="Update"
