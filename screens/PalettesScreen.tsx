@@ -5,13 +5,41 @@ import Controls from '../components/Controls';
 import { Text, View } from '../components/Themed';
 import { LinearGradient } from 'expo-linear-gradient';
 import palettes from '../constants/Palettes';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { setPalette } from '../reducers/PatternReducer';
+import { clearSelectedDevice, disconnect, getSelectedDeviceId } from '../reducers/BLEDeviceReducer';
+import BluetoothManager from '../constants/BluetoothManager';
+import { Button } from 'react-native-elements';
+import * as tinycolor from 'tinycolor2';
 
 export default function PalettesScreen({ navigation }) {
   const dispatch = useDispatch();
   const [selectedPalette, setSelectedPalette] = useState(-1);
+
+  let connectedDeviceId = useSelector(getSelectedDeviceId);
+  
+  const disconnectButton = <Button
+    title="Disconnect"
+    buttonStyle={{backgroundColor: '#000000'}}
+    onPress={() => {
+      BluetoothManager.getBluetoothManager().cancelDeviceConnection(
+        connectedDeviceId
+      ).then(device => {
+        dispatch(clearSelectedDevice);
+        dispatch(disconnect);
+        navigation.replace('BluetoothDeviceList');
+      })
+    }}
+  />  
+  
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        disconnectButton
+      ),
+    });
+  }, [navigation]);
 
   let newPalettes = palettes.map((palette, index) => {
     return {id: index, ...palette}
@@ -26,7 +54,7 @@ export default function PalettesScreen({ navigation }) {
   const linearGradientItem = ({ item }: {item: any}) => (
     <View style={styles.linearGradientContainer}>
         <Pressable onPress={() => {
-          dispatch(setPalette({colors: item.colors, anchorPoints: item.locations}))
+          dispatch(setPalette({colors: item.colors.map(color => parseInt(tinycolor.default(color).toHex(), 16)), anchorPoints: item.locations}))
           setSelectedPalette(item.id)}
           }>
           <Text style={ {paddingBottom: 5}}>{ camelCaseToTitleCase(item.name) }</Text>
@@ -63,7 +91,7 @@ const styles = StyleSheet.create({
   },
   selectedLinearGradient: {
     marginBottom: 10, 
-    borderRadius: 13,
+    borderRadius: 16,
     borderColor: 'white',
     borderWidth: 1.5,
     height: 40,

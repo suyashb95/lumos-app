@@ -24,7 +24,7 @@ const patternSlice = createSlice({
         },
         setBehavior: (state, action) => {
             state.behavior = action.payload;
-        }
+        },
     }
 })
 

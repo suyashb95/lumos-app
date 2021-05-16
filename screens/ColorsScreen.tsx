@@ -14,6 +14,7 @@ import BluetoothManager from '../constants/BluetoothManager';
 export default function ColorsScreen({ navigation }) {
   const dispatch = useDispatch();
   let connectedDeviceId = useSelector(getSelectedDeviceId);
+  
   const disconnectButton = <Button
     title="Disconnect"
     buttonStyle={{backgroundColor: '#000000'}}

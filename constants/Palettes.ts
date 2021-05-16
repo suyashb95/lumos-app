@@ -1,3 +1,5 @@
+import tinycolor from 'tinycolor2';
+
 export default [{
     name: 'rainbowColors',
     colors: [
@@ -17,93 +19,32 @@ export default [{
     ],
     anchorPoints: []
   }, {
-    name: 'partyColors2',
+    name: 'heatColors',
     colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
+      '#000000', '#330000', '#660000', '#990000', 
+      '#CC0000', '#FF0000', '#FF3300', '#FF6600', 
+      '#FF9900', '#FFCC00', '#FFFF00', '#FFFF33', 
+      '#FFFF66', '#FFFF99', '#FFFFCC', '#FFFFFF',
     ],
     anchorPoints: []
   }, {
-    name: 'partyColors3',
+    name: 'lavaColors',
     colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors4',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors5',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors6',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors7',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors8',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors9',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors10',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
-    ],
-    anchorPoints: []
-  }, {
-    name: 'partyColors11',
-    colors: [
-      '#5500AB', '#84007C', '#B5004B', '#E5001B',
-      '#E81700', '#B84700', '#AB7700', '#ABAB00',
-      '#AB5500', '#DD2200', '#F2000E', '#C2003E',
-      '#8F0071', '#5F00A1', '#2F00D0', '#0007F9'     
+      tinycolor('BLACK').toHexString(),
+      tinycolor('MAROON').toHexString(),
+      tinycolor('BLACK').toHexString(),
+      tinycolor('MAROON').toHexString(),
+      tinycolor('DARK_RED').toHexString(),
+      tinycolor('MAROON').toHexString(),
+      tinycolor('DARK_RED').toHexString(),
+      tinycolor('DARK_RED').toHexString(),
+      tinycolor('DARK_RED').toHexString(),
+      tinycolor('RED').toHexString(),
+      tinycolor('ORANGE').toHexString(),
+      tinycolor('WHITE').toHexString(),
+      tinycolor('ORANGE').toHexString(),
+      tinycolor('RED').toHexString(),
+      tinycolor('DARK_RED').toHexString()
     ],
     anchorPoints: []
   }

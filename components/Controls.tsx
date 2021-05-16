@@ -49,7 +49,7 @@ export default function Controls({ navigation }) {
         />
         <Text style={{marginLeft: 10, marginBottom: 10}} >Effect</Text>
         <Picker
-          style={{marginLeft: 10, marginBottom: 20, backgroundColor: '#fff', width: '45%'}}
+          style={{marginLeft: 20, marginBottom: 20, color: 'white', width: '45%'}}
           onValueChange={(value, _) => dispatch(setBehavior(value))}
           selectedValue={behavior}
           mode={Picker.MODE_DROPDOWN}>
@@ -88,7 +88,6 @@ export default function Controls({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   fixToText: {
     marginLeft: 5,
