@@ -9,7 +9,7 @@ import { Behavior } from '../constants/Behavior';
 import { getBehavior, setBehavior, setSpeed, setBrightness, getPatternConfiguration, setPalette, getBrightness, getSpeed } from '../reducers/PatternReducer';
 import { LabeledSlider } from './LabeledSlider';
 import Navigation from '../navigation';
-import { clearConnectedDevice, getConnectedDevice } from '../reducers/BLEDeviceReducer';
+import { isConnected, getSelectedDeviceId } from '../reducers/BLEDeviceReducer';
 import { useState } from 'react';
 import { Base64, BleManager, Device } from 'react-native-ble-plx';
 import { LUMOS_SERVICE_CHARACTERISTIC, LUMOS_WRITE_CHARACTERISTIC } from '../constants/DeviceCharacteristics';
@@ -17,10 +17,11 @@ import BluetoothManager from '../constants/BluetoothManager';
 
 export default function Controls({ navigation }) {
   const dispatch = useDispatch();
-  const behavior = useSelector(getBehavior);
-  const brightness = useSelector(getBrightness);
+  const selectedDeviceId = useSelector(getSelectedDeviceId);
+  const isDeviceConnected = useSelector(isConnected);
   const speed = useSelector(getSpeed);
-  const device = useSelector(getConnectedDevice);
+  const brightness = useSelector(getBrightness);
+  const behavior = useSelector(getBehavior)
   const patternConfig = useSelector(getPatternConfiguration);
 
   return (
@@ -61,11 +62,10 @@ export default function Controls({ navigation }) {
           <Button
             onPress={() => {
               let payload = JSON.stringify(patternConfig);
-              console.log(payload);
-              if (device !== null) {
+              if (isDeviceConnected) {
                 BluetoothManager.getBluetoothManager()
                   .writeCharacteristicWithResponseForDevice(
-                    device,
+                    selectedDeviceId,
                     LUMOS_SERVICE_CHARACTERISTIC,
                     LUMOS_WRITE_CHARACTERISTIC,
                     Buffer.from(payload).toString('base64'),

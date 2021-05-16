@@ -3,24 +3,34 @@ import { createSlice } from '@reduxjs/toolkit'
 const bluetoothState = createSlice({
     name: 'bluetooth',
     initialState: {
-        connectedDeviceId: null
+        selectedDeviceId: null,
+        isConnected: false
     },
     reducers: {
-        setConnectedDevice: (state, action) => {
+        setSelectedDevice: (state, action) => {
             console.log(action);
-            state.connectedDeviceId = action.payload;
+            state.selectedDeviceId = action.payload;
         },
-        clearConnectedDevice: (state, action) => {
-            state.connectedDeviceId = null;
+        clearSelectedDevice: (state, action) => {
+            state.selectedDeviceId = null;
         },
+        connect: (state, _) => {
+            state.isConnected = true;
+        },
+        disconnect: (state, _) => {
+            state.isConnected = false;
+        }
     }
 });
 
-export const getConnectedDevice = (state: any) => state.bluetooth.connectedDeviceId;
+export const getSelectedDeviceId = (state: any) => state.bluetooth.selectedDeviceId;
+export const isConnected = (state: any) => state.bluetooth.isConnected;
 
 export const {
-    setConnectedDevice,
-    clearConnectedDevice,
+    setSelectedDevice,
+    clearSelectedDevice,
+    connect,
+    disconnect
 } = bluetoothState.actions;
 
 export default bluetoothState.reducer;    

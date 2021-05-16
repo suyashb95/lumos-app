@@ -1,13 +1,14 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import { Pressable, Button, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import { Pressable, StyleSheet, FlatList} from 'react-native';
 import { View, Text } from '../components/Themed';
 import { RootStackParamList } from '../types';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BleManager, State, Device } from 'react-native-ble-plx';
-import { setConnectedDevice } from '../reducers/BLEDeviceReducer';
+import { connect, isConnected, setSelectedDevice } from '../reducers/BLEDeviceReducer';
 import BluetoothManager from '../constants/BluetoothManager';
+import { Header, Button } from 'react-native-elements';
 
 export default function BluetoothDeviceListScreen({
   navigation,  
@@ -34,7 +35,8 @@ export default function BluetoothDeviceListScreen({
             return device.discoverAllServicesAndCharacteristics()
           })
           .then(device => {
-            dispatch(setConnectedDevice(device.id));
+            dispatch(setSelectedDevice(device.id));
+            dispatch(connect({}));
             navigation.replace('Root');
           })
           .catch(error => {
@@ -76,22 +78,26 @@ export default function BluetoothDeviceListScreen({
     }, SCAN_TIMEOUT) 
   };
 
+  const scanButton = <Button
+    onPress={() => scanDevices()}
+    title="Scan"
+    titleStyle={{color: '#ffffff'}}
+    type="clear"
+  /> 
+
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
-      <FlatList
+      <Header
+        backgroundColor="#841584"
+        leftComponent={{ text: 'Lumos', style: { color: '#fff' } }}
+        rightComponent={scanButton}
+      />      
+      <FlatList style={{paddingTop: 10, paddingBottom: 10}}
           data={Object.values(devices)}
           renderItem={bluetoothDeviceComponent} 
           keyExtractor={(item: any) => item.id}
         />      
-      <Button
-            onPress={() => scanDevices()}
-            title="Scan"
-            color="#841584"
-            accessibilityLabel="Scan"
-        /> 
+
     </View>
   );
 }

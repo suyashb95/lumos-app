@@ -2,17 +2,34 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
+import { BackHandler } from 'react-native';
+import { Button } from 'react-native-elements/dist/buttons/Button';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import { clearSelectedDevice, disconnect, isConnected } from '../reducers/BLEDeviceReducer';
 import ColorsScreen from '../screens/ColorsScreen';
 import PalettesScreen from '../screens/PalettesScreen';
 import { BottomTabParamList, ColorsTabParamList, PalettesTabParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+export default function BottomTabNavigator({ }) {
   const colorScheme = useColorScheme();
+  const isDeviceConnected = useSelector(isConnected);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const backAction = () => {
+      if (isDeviceConnected) {
+        dispatch(clearSelectedDevice);
+        dispatch(disconnect);
+      }
+    }
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => backHandler.remove();
+  }, []);        
 
   return (
     <BottomTab.Navigator
