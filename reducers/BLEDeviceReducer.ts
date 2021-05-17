@@ -14,10 +14,10 @@ const bluetoothState = createSlice({
         clearSelectedDevice: (state, action) => {
             state.selectedDeviceId = null;
         },
-        connect: (state, _) => {
+        connect: (state) => {
             state.isConnected = true;
         },
-        disconnect: (state, _) => {
+        disconnect: (state) => {
             state.isConnected = false;
         }
     }

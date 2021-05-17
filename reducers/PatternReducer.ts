@@ -25,6 +25,7 @@ const patternSlice = createSlice({
         setBehavior: (state, action) => {
             state.behavior = action.payload;
         },
+        clearPatternState: (state) => patternSlice.initialState
     }
 })
 
@@ -37,7 +38,8 @@ export const {
     setBrightness,
     setSpeed,
     setPalette,
-    setBehavior
+    setBehavior,
+    clearPatternState
 } = patternSlice.actions;
 
 export default patternSlice.reducer;

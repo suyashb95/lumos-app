@@ -32,7 +32,7 @@ export default function Controls({ navigation }) {
           label={"Brightness"}
           style={{height: 40, width: '90%'}}
           minimumValue={0}
-          maximumValue={1}
+          maximumValue={100}
           onSlidingComplete={(value: any) => dispatch(setBrightness(value))}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
@@ -41,7 +41,7 @@ export default function Controls({ navigation }) {
           value={speed}
           label={"Speed"}
           style={{height: 40, width: '90%'}}
-          minimumValue={0}
+          minimumValue={100}
           maximumValue={1}
           onSlidingComplete={(value: any) => dispatch(setSpeed(value))}
           minimumTrackTintColor="#FFFFFF"

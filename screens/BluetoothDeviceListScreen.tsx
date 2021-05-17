@@ -9,6 +9,7 @@ import { BleManager, State, Device } from 'react-native-ble-plx';
 import { connect, isConnected, setSelectedDevice } from '../reducers/BLEDeviceReducer';
 import BluetoothManager from '../constants/BluetoothManager';
 import { Header, Button, Icon } from 'react-native-elements';
+import { clearPatternState } from '../reducers/PatternReducer';
 
 export default function BluetoothDeviceListScreen({
   navigation,  
@@ -36,7 +37,8 @@ export default function BluetoothDeviceListScreen({
           })
           .then(device => {
             dispatch(setSelectedDevice(device.id));
-            dispatch(connect({}));
+            dispatch(connect());
+            dispatch(clearPatternState())
             navigation.replace('Root');
           })
           .catch(error => {
